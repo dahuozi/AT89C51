@@ -1,29 +1,16 @@
 #include<reg51.h> 
-
 #define uchar unsigned char
-
 #define uint  unsigned int
-
 unsigned char const dofly[]={~0x3F,~0x06,~0x5B,~0x4F,~0x66,~0x6D,~0x7D,~0x07,~0x7F,~0x6F,~0x77,~0x7C,~0x39,~0x5E,~0x79,~0x71};//0-F
-
 uchar keyscan(void);
-
 void delay(uint i); 
-
 void main()
-
 {
-
  uchar key;
-
  while(1)
-
 {
-
  key=keyscan(); 
-
  switch(key)
-
  {
   case 0xee:P0=dofly[0];break;
   case 0xde:P0=dofly[1];break;
@@ -41,48 +28,26 @@ void main()
   case 0xd7:P0=dofly[13];break;
   case 0xb7:P0=dofly[14];break;
   case 0x77:P0=dofly[15];break;
- }
-
- }
-
+ } }
 }
-
 uchar keyscan(void)  
 {
-
  uchar cord_h,cord_l;
-
  P1=0x0f;           
  cord_h=P1&0x0f;     
-
  if(cord_h!=0x0f)   
-
  {
-
   delay(1000);       
-
   if((P1&0x0f)!=0x0f)
-
   {
-
     cord_h=P1&0x0f; 
-
     P1=cord_h|0xf0; 
-
     cord_l=P1&0xf0; 
-
     return(cord_h+cord_l);
-
    }
-
   }return(0xff);    
-
 }
-
 void delay(uint i) 
-
 {
-
 while(i--);
-
 }
